@@ -62,9 +62,11 @@ playbook.yml                    Ansible server provisioning
 - Separated server provisioning (Ansible) from app deployment (GitHub Actions) so infrastructure setup and application releases can evolve independently.
 
 ## Running Locally
+```
 pip install -r requirements.txt
 pytest
 python app.py
+```
 
 ## Author
 
