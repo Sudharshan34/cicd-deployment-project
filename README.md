@@ -25,7 +25,7 @@ Separately, an **Ansible playbook** automates provisioning a brand-new EC2 serve
 
 ## Pipeline Architecture
 
-\`\`\`
+```
 git push
     |
     v
@@ -40,13 +40,13 @@ SSH into EC2 instance
     |
     v
 App live on EC2 (port 80)
-\`\`\`
+```
 
 Ansible playbook (run separately) provisions a fresh EC2 instance with Docker pre-installed and configured, making server setup fully repeatable.
 
 ## Project Structure
 
-\`\`\`
+```
 app.py                          Flask application
 test_app.py                     Automated tests
 requirements.txt                Python dependencies
@@ -54,7 +54,7 @@ Dockerfile                      Container definition
 inventory.ini                   Ansible inventory
 playbook.yml                    Ansible server provisioning
 .github/workflows/deploy.yml    CI/CD pipeline definition
-\`\`\`
+```
 ## Key Engineering Decisions
 
 - Switched from Docker Hub to GitHub Container Registry after diagnosing a persistent authentication issue in the CI environment — GHCR's built-in token authentication removed an entire class of credential-related failures.
