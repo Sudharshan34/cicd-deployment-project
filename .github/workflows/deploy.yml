@@ -24,17 +24,21 @@ jobs:
   build-and-push:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: |
+          echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 
       - name: Build image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cicd-demo-app:latest .
+        run: docker build -t $DOCKERHUB_USERNAME/cicd-demo-app:latest .
 
       - name: Push image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd-demo-app:latest
+        run: docker push $DOCKERHUB_USERNAME/cicd-demo-app:latest
 
   deploy:
     needs: build-and-push
