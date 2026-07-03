@@ -30,6 +30,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug secret lengths
+        run: |
+          echo "Username length: ${#DOCKERHUB_USERNAME}"
+          echo "Token length: ${#DOCKERHUB_TOKEN}"
+          docker --version
+
       - name: Log in to Docker Hub
         run: |
           echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
